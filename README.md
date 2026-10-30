@@ -1,14 +1,124 @@
-# 🎮 Tic-Tac-Toe AI com Machine Learning (MLPClassifier)
+# 🎮 Tic-Tac-Toe AI with Machine Learning (MLPClassifier)
 
 <p align="center">
   <img src="./assets/banner.gif" alt="Tic-Tac-Toe AI Banner" width="100%" />
 </p>
 
-Um jogo da velha (*Tic-Tac-Toe*) interativo desenvolvido em Python que utiliza uma **Rede Neural Artificial (Multi-Layer Perceptron - `MLPClassifier`)** treinada no clássico dataset *Tic-Tac-Toe Endgame* (UCI Machine Learning Repository) para jogar contra humanos.
+<p align="center">
+  <a href="#english">English</a> •
+  <a href="#português">Português</a>
+</p>
 
 ---
 
-## 📋 Sobre o Projeto
+<a name="english"></a>
+## 🇬🇧 English
+
+An interactive **Tic-Tac-Toe** game developed in Python featuring an **Artificial Neural Network (Multi-Layer Perceptron - `MLPClassifier`)** trained on the classic *Tic-Tac-Toe Endgame* dataset from the UCI Machine Learning Repository to play against humans.
+
+### 📋 Overview
+
+The goal of this project is to apply fundamental **Supervised Machine Learning** concepts to an interactive game environment. Instead of relying on traditional tree search algorithms (such as *Minimax*), the AI agent evaluates board configurations using a probabilistic classification model:
+
+1. **Data Preprocessing**:
+   - Loads the `tic-tac-toe.data` dataset containing 958 legal endgame board configurations.
+   - Categorical feature encoding (*One-Hot Encoding* via `pd.get_dummies`).
+   - Train/test split (80% / 20%) and feature standardization using `StandardScaler`.
+2. **Model Training**:
+   - Neural Network **MLP (`MLPClassifier`)** with two hidden layers `(18, 9)` and up to `2000` iterations.
+   - Achieves **98.44% accuracy** on the test set.
+3. **AI Decision-Making (`get_ai_move`)**:
+   - On each AI turn, every empty cell on the board is simulated.
+   - If the AI plays as `O`, the board symbols are mirrored in the query so the model evaluates victory odds (`positive`) from the AI's perspective.
+   - The move that maximizes `predict_proba` for the `positive` class is chosen.
+
+### 📂 Repository Structure
+
+```text
+ml-tictactoe/
+├── assets/
+│   └── banner.gif            # AI showcase and MLP architecture animation
+├── tic_tac_toe/              # Terminal game logic and execution package
+│   ├── __init__.py
+│   ├── constants.py          # Board constants, A1-C3 mapping, and winning lines
+│   ├── run.py                # Main game loop (Player vs Player / Player vs AI)
+│   └── tic_tac_toe.py        # Board rendering, move validation, and victory checks
+├── tic-tac-toe.data          # UCI Tic-Tac-Toe Endgame dataset (958 instances)
+├── tic-tac-toe.names         # Official dataset metadata and documentation
+├── tic_tac_toe_p1.ipynb      # Main notebook: ML pipeline + interactive game
+├── requirements.txt          # Python dependencies
+└── README.md                 # Project documentation
+```
+
+### 🚀 Getting Started
+
+#### 1. Clone the repository
+
+```bash
+git clone https://github.com/SEU-USUARIO/ml-tictactoe.git
+cd ml-tictactoe
+```
+
+#### 2. Install dependencies
+
+Using a virtual environment (`venv`) is recommended:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+#### 3. Run the Notebook
+
+Open `tic_tac_toe_p1.ipynb` in **Jupyter Notebook**, **JupyterLab**, **VS Code**, or **Google Colab** and run the cells sequentially:
+
+```bash
+jupyter notebook tic_tac_toe_p1.ipynb
+```
+
+### 🕹️ Gameplay Example
+
+When running the final cell (`run.runGame(get_ai_move)`), choose between **Player vs Player (1)** or **Player vs AI (2)** and enter board coordinates using the `RowColumn` format (`A1`, `B2`, `C3`, etc.):
+
+```text
+Welcome to Tic Tac Toe!
+Choose game mode:
+1. Player vs Player
+2. Player vs AI
+Enter 1 or 2: 2
+Your Player 2 is our implemented AI.
+
+   1   2   3
+A  X |   | O
+  ---+---+---
+B    | X |  
+  ---+---+---
+C    |   |  
+```
+
+### 📊 Dataset Details (UCI Machine Learning Repository)
+
+- **Title**: *Tic-Tac-Toe Endgame Database*
+- **Creator / Donor**: David W. Aha (1991)
+- **Instances**: 958 legal endgame board states
+- **Attributes**: 9 board positions (`x`, `o`, `b` for blank) + target attribute `Class` (`positive` or `negative` for `x` win)
+
+### 🛠️ Built With
+
+- **Python 3**
+- **Pandas & NumPy** — Data manipulation and feature encoding
+- **Scikit-Learn** — `MLPClassifier`, `StandardScaler`, `train_test_split`, `accuracy_score`
+- **Jupyter Notebook** — Interactive experimentation and gameplay environment
+
+---
+
+<a name="português"></a>
+## 🇧🇷 Português
+
+Um jogo da velha (*Tic-Tac-Toe*) interativo desenvolvido em Python que utiliza uma **Rede Neural Artificial (Multi-Layer Perceptron - `MLPClassifier`)** treinada no clássico dataset *Tic-Tac-Toe Endgame* (UCI Machine Learning Repository) para jogar contra humanos.
+
+### 📋 Sobre o Projeto
 
 O objetivo deste projeto é aplicar conceitos fundamentais de **Aprendizado de Máquina Supervisionado** em um ambiente prático de jogo. Em vez de usar algoritmos tradicionais de busca em árvore (como *Minimax*), o agente inteligente avalia o estado do tabuleiro através de um modelo de classificação probabilística:
 
@@ -24,9 +134,7 @@ O objetivo deste projeto é aplicar conceitos fundamentais de **Aprendizado de M
    - Caso a IA esteja jogando como `O`, os símbolos do tabuleiro são espelhados na consulta para que o modelo avalie a probabilidade da configuração ser vitoriosa (`positive`) sob a perspectiva da IA.
    - A jogada que maximiza `predict_proba` para a classe `positive` é escolhida.
 
----
-
-## 📂 Estrutura do Repositório
+### 📂 Estrutura do Repositório
 
 ```text
 ml-tictactoe/
@@ -44,18 +152,16 @@ ml-tictactoe/
 └── README.md                 # Documentação do projeto
 ```
 
----
+### 🚀 Como Executar
 
-## 🚀 Como Executar
-
-### 1. Clonar o repositório
+#### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/SEU-USUARIO/ml-tictactoe.git
 cd ml-tictactoe
 ```
 
-### 2. Instalar as dependências
+#### 2. Instalar as dependências
 
 Recomenda-se o uso de um ambiente virtual (`venv`):
 
@@ -65,7 +171,7 @@ source .venv/bin/activate  # No Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3. Executar o Notebook
+#### 3. Executar o Notebook
 
 Abra o arquivo `tic_tac_toe_p1.ipynb` no **Jupyter Notebook**, **JupyterLab**, **VS Code** ou **Google Colab** e execute as células em sequência:
 
@@ -73,9 +179,7 @@ Abra o arquivo `tic_tac_toe_p1.ipynb` no **Jupyter Notebook**, **JupyterLab**, *
 jupyter notebook tic_tac_toe_p1.ipynb
 ```
 
----
-
-## 🕹️ Exemplo de Partida
+### 🕹️ Exemplo de Partida
 
 Ao executar a última célula (`run.runGame(get_ai_move)`), você pode escolher entre **Player vs Player (1)** ou **Player vs AI (2)** e informar as coordenadas no formato `LinhaColuna` (`A1`, `B2`, `C3`, etc.):
 
@@ -95,21 +199,16 @@ B    | X |
 C    |   |  
 ```
 
----
-
-## 📊Sobre o Dataset (UCI Machine Learning Repository)
+### 📊 Sobre o Dataset (UCI Machine Learning Repository)
 
 - **Título**: *Tic-Tac-Toe Endgame Database*
 - **Autor / Doador**: David W. Aha (1991)
 - **Instâncias**: 958 configurações legais de fim de jogo
 - **Atributos**: 9 posições do tabuleiro (`x`, `o`, `b` para vazio) + atributo alvo `Class` (`positive` ou `negative` para vitória de `x`)
 
----
-
-## 🛠️ Tecnologias Utilizadas
+### 🛠️ Tecnologias Utilizadas
 
 - **Python 3**
 - **Pandas & NumPy** — Manipulação de dados e codificação de atributos
 - **Scikit-Learn** — `MLPClassifier`, `StandardScaler`, `train_test_split`, `accuracy_score`
 - **Jupyter Notebook** — Ambiente interativo de experimentação e execução
-
